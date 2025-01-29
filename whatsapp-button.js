@@ -3,16 +3,17 @@ window.WhatsAppButton = window.WhatsAppButton || {
   config: {
     greeting: 'Olá! Tudo bem? Tem alguma dúvida sobre os nossos produtinhos?',
     phoneNumber: '',
-    position: { bottom: '40px', right: '40px' }
+    position: { bottom: '40px', right: '40px' },
+    webhookUrl: ''
   },
-  init: function(customConfig = {}) {
+  init: function (customConfig = {}) {
     // Merge custom config with default config
     this.config = { ...this.config, ...customConfig };
-    
+
     // Initialize the WhatsApp button
     this.initializeButton();
   },
-  initializeButton: function() {
+  initializeButton: function () {
     // Global variable to store location
     let userLocation = { available: false };
 
@@ -185,10 +186,6 @@ window.WhatsAppButton = window.WhatsAppButton || {
           <input type="tel" id="wa-phone" placeholder="Telefone" required>
           <div class="error"></div>
         </div>
-        <div class="wa-form-group">
-          <textarea id="wa-message" placeholder="Mensagem" required></textarea>
-          <div class="error"></div>
-        </div>
         <button type="submit" class="wa-submit-btn">Enviar mensagem</button>
       </form>
     `;
@@ -262,46 +259,63 @@ window.WhatsAppButton = window.WhatsAppButton || {
 
     // Form submission
     const form = document.getElementById('wa-form');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const name = document.getElementById('wa-name').value;
       const email = document.getElementById('wa-email').value;
       const phone = document.getElementById('wa-phone').value;
-      const message = document.getElementById('wa-message').value;
 
       // Validate all fields
       let isValid = true;
-      
+
       if (!name) {
         showError(document.getElementById('wa-name'), 'Por favor, preencha seu nome');
         isValid = false;
       }
-      
+
       if (!validateEmail(email)) {
         showError(document.getElementById('wa-email'), 'Por favor, insira um email válido');
         isValid = false;
       }
-      
+
       if (!validatePhone(phone)) {
         showError(document.getElementById('wa-phone'), 'Por favor, insira um telefone válido');
         isValid = false;
       }
 
       if (isValid) {
-        const destinationPhone = this.config.phoneNumber.replace(/\D/g, '');
-        const whatsappMessage = `Nome: ${name}%0AEmail: ${email}%0ATelefone: ${phone}%0AMensagem: ${message}`;
-        const whatsappUrl = `https://wa.me/${destinationPhone}?text=${whatsappMessage}`;
-        
-        // Add location data if available
-        if (userLocation.available) {
-          const locationInfo = `%0A%0ALocalização:%0ACidade: ${userLocation.city}%0ARegião: ${userLocation.region}%0APaís: ${userLocation.country}`;
-          whatsappUrl += locationInfo;
+        try {
+          // Send data to webhook
+          if (this.config.webhookUrl) {
+            const webhookData = {
+              name,
+              email,
+              phone,
+              location: userLocation,
+              timestamp: new Date().toISOString()
+            };
+
+            await fetch(this.config.webhookUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(webhookData)
+            });
+          }
+
+          // Open WhatsApp without user data
+          const destinationPhone = this.config.phoneNumber.replace(/\D/g, '');
+          const whatsappUrl = `https://wa.me/${destinationPhone}`;
+          window.open(whatsappUrl, '_blank');
+
+          // Reset and close form
+          modal.style.display = 'none';
+          form.reset();
+        } catch (error) {
+          console.error('Error submitting form:', error);
         }
-        
-        window.open(whatsappUrl, '_blank');
-        modal.style.display = 'none';
-        form.reset();
       }
     });
   }
