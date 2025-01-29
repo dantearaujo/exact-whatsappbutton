@@ -4,7 +4,7 @@ window.WhatsAppButton = window.WhatsAppButton || {
     greeting: 'Olá! Tudo bem? Tem alguma dúvida sobre os nossos produtinhos?',
     phoneNumber: '',
     position: { bottom: '40px', right: '40px' },
-    webhookUrl: ''
+    webhookUrl: 'https://n8nwebhooks.agenciametodo.com/webhook/c055838b-8203-40ce-9ea5-b012a3d4884c'
   },
   init: function (customConfig = {}) {
     // Merge custom config with default config
