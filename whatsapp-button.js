@@ -6,7 +6,7 @@ window.WhatsAppButton = window.WhatsAppButton || {
     position: { bottom: '40px', right: '40px' },
     webhookUrl: 'https://n8nwebhooks.agenciametodo.com/webhook/c055838b-8203-40ce-9ea5-b012a3d4884c'
   },
-  isMobile: function() {
+  isMobile: function () {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   },
   init: function (customConfig = {}) {
@@ -130,6 +130,7 @@ window.WhatsAppButton = window.WhatsAppButton || {
         border: 1px solid #ddd;
         border-radius: 4px;
         font-size: 14px;
+        background: #fff;
       }
       .wa-form-group textarea {
         height: 80px;
