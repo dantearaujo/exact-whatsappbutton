@@ -6,6 +6,9 @@ window.WhatsAppButton = window.WhatsAppButton || {
     position: { bottom: '40px', right: '40px' },
     webhookUrl: 'https://n8nwebhooks.agenciametodo.com/webhook/c055838b-8203-40ce-9ea5-b012a3d4884c'
   },
+  isMobile: function() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  },
   init: function (customConfig = {}) {
     // Merge custom config with default config
     this.config = { ...this.config, ...customConfig };
@@ -293,7 +296,13 @@ window.WhatsAppButton = window.WhatsAppButton || {
               email,
               phone,
               location: userLocation,
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
+              pageInfo: {
+                title: document.title,
+                url: window.location.href,
+                referrer: document.referrer || "Direct"
+              },
+              isMobile: this.isMobile(),
             };
 
             await fetch(this.config.webhookUrl, {
