@@ -322,7 +322,8 @@ window.WhatsAppButton = window.WhatsAppButton || {
 
           // Open WhatsApp without user data
           const destinationPhone = this.config.phoneNumber.replace(/\D/g, '');
-          const whatsappUrl = `https://wa.me/${destinationPhone}`;
+          const encodedGreeting = encodeURIComponent(this.config.greeting);
+          const whatsappUrl = `https://wa.me/${destinationPhone}?text=${encodedGreeting}`;
           window.open(whatsappUrl, '_blank');
 
           // Reset and close form
