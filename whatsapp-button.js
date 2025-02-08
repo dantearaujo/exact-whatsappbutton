@@ -49,9 +49,9 @@ window.WhatsAppButton = window.WhatsAppButton || {
     const style = document.createElement('style');
     style.textContent = `
       .wa-modal-title {
-        font-family: Arial, sans-serif;
         font-size: 16px;
         line-height: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
       }
       .wa-float-btn {
         position: fixed;
@@ -64,7 +64,7 @@ window.WhatsAppButton = window.WhatsAppButton || {
         border-radius: 50px;
         text-align: center;
         font-size: 30px;
-        box-shadow: 2px 2px 3px #999;
+        box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.15);
         z-index: 100;
         cursor: pointer;
         display: flex;
@@ -85,17 +85,17 @@ window.WhatsAppButton = window.WhatsAppButton || {
         right: 40px;
         background-color: #fff;
         padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 101;
+        border-radius: 24px;
+        box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.08);
+        z-index: 999;
         width: 300px;
-        background:url(https://d3eq1zq78ux3cv.cloudfront.net/static/wp-bg.png) repeat center center transparent;
+        background: #fff;
       }
       .wa-modal-header {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         gap: 16px;
       }
       .wa-modal-header img {
@@ -104,11 +104,17 @@ window.WhatsAppButton = window.WhatsAppButton || {
       }
       .wa-modal-close {
         background: none;
-        border: none;
         font-size: 24px;
         cursor: pointer;
-        color: #666;
+        color: #868e96;
         padding: 0;
+        border: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
       }
       .wa-modal h2 {
         margin: 0;
@@ -118,7 +124,7 @@ window.WhatsAppButton = window.WhatsAppButton || {
       .wa-modal form {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
       }
       .wa-form-group {
         position: relative;
@@ -126,11 +132,10 @@ window.WhatsAppButton = window.WhatsAppButton || {
       .wa-form-group input,
       .wa-form-group textarea {
         width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+        padding: 10px 16px;
+        border-radius: 8px;
         font-size: 14px;
-        background: #fff;
+        background: #F7F7F7;
       }
       .wa-form-group textarea {
         height: 80px;
@@ -153,13 +158,13 @@ window.WhatsAppButton = window.WhatsAppButton || {
         background-color: #25d366;
         color: white;
         border: none;
-        padding: 10px;
-        border-radius: 4px;
+        padding: 10px 16px;
+        border-radius: 8px;
         cursor: pointer;
         font-size: 14px;
       }
       .wa-submit-btn:hover {
-        background-color: #128C7E;
+        background-color: #0eac49;
       }
     `;
     document.head.appendChild(style);
