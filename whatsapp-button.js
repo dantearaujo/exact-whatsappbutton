@@ -65,7 +65,7 @@ window.WhatsAppButton = window.WhatsAppButton || {
         text-align: center;
         font-size: 30px;
         box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.15);
-        z-index: 100;
+        z-index: 9999;
         cursor: pointer;
         display: flex;
         align-items: center;
